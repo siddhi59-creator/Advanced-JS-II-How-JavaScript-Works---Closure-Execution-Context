@@ -1,0 +1,77 @@
+
+// QUESTION 1: Closure-Based Counter// 
+
+function createCounter() {
+  let count = 0; // private variable
+
+  return {
+    increment() {
+      count++;
+      console.log("Current count:", count);
+    },
+
+    decrement() {
+      count--;
+      console.log("Current count:", count);
+    },
+
+    getCount() {
+      console.log("Current count:", count);
+    }
+  };
+}
+
+// Example Usage:
+const counterA = createCounter();
+counterA.increment(); // 1
+counterA.increment(); // 2
+counterA.decrement(); // 1
+
+const counterB = createCounter(); // independent counter
+counterB.increment(); // 1
+
+
+
+// QUESTION 2: Bank Account with Closure// 
+
+function createBankAccount() {
+  let balance = 0; // private variable
+  let transactionHistory = []; // private array
+
+  return {
+    deposit(amount) {
+      balance += amount;
+      transactionHistory.push({ type: "Deposit", amount });
+      console.log(`Deposited: ${amount}`);
+    },
+
+    withdraw(amount) {
+      if (amount > balance) {
+        console.log("Insufficient balance");
+        return;
+      }
+      balance -= amount;
+      transactionHistory.push({ type: "Withdraw", amount });
+      console.log(`Withdrawn: ${amount}`);
+    },
+
+    checkBalance() {
+      console.log(`Current balance: ${balance}`);
+    },
+
+    getTransactions() {
+      console.log("Transaction History:", transactionHistory);
+    }
+  };
+}
+
+// Example Usage:
+const account = createBankAccount();
+account.deposit(500);     // Deposited: 500
+account.withdraw(200);    // Withdrawn: 200
+account.withdraw(400);    // Insufficient balance
+account.checkBalance();   // Current balance: 300
+account.getTransactions();
+// Transaction History: [{type: 'Deposit', amount: 500}, {type: 'Withdraw', amount: 200}]
+
+
